@@ -36,6 +36,7 @@ class SlidingObject(Object):
     def collide(self, other = None):
         self.color = (randint(0, 255), randint(0, 255), randint(0, 255))
 
+
 class GravityObject(Object):
     def __init__(self, x: int=0, y: int=0, width: int=100, height:int=100, color=(255, 255, 255),screen=pygame.display.get_surface(), speedx: int = 1, speedy: int = 1):
         super().__init__(x, y, width, height, color, screen)
@@ -52,4 +53,19 @@ class GravityObject(Object):
 
 
 
+
+
+        
+class NoImpulseObject(Object):
+    def __init__(self, x: int=0, y: int=0, width: int=100, height:int=100, color=(255, 255, 255),screen=pygame.display.get_surface(), speed: int = 1):
+        super().__init__(x, y, width, height, color, screen)
+        self.speed = speed
+
+    def move(self):
+        self.rect.x += self.speed
+        if self.rect.right > self.screen.get_width() or self.rect.left < 0:
+            self.speed *= -1
+
+    def collide(self, other = None):
+        self.speed *= -1
 
