@@ -35,3 +35,5 @@ class SlidingObject(Object):
 
     def collide(self, other = None):
         self.color = (randint(0, 255), randint(0, 255), randint(0, 255))
+
+class usidedown(Object)
