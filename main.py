@@ -1,6 +1,8 @@
 import pygame
 import sys
-from object import Object, SlidingObject, ShrinkingObject
+from object import Object, SlidingObject
+from object import Object, SlidingObject, GravityObject, UpsidedownGravity, ShrinkingObject
+
 
 def main():
     pygame.init()
@@ -15,8 +17,16 @@ def main():
     gameObjects.append(Object(100, 100, 100, 100, (255, 0, 0), screen))
     gameObjects.append(SlidingObject(100, 200, 100, 100, (0, 255, 0), screen, 2))
     gameObjects.append(SlidingObject(600, 200, 100, 100, (0, 255, 0), screen, -2))
+
     gameObjects.append(ShrinkingObject(800, 280, 100, 100, screen, -1))
     
+
+
+
+    gameObjects.append(UpsidedownGravity(400, 200, 100, 100, (0, 255, 0), screen, -4, -1, -0.9))
+
+    gameObjects.append(GravityObject(600, 200, 100, 100, (0, 255, 0), screen, 10, 0))
+
 
 
     clock = pygame.time.Clock()
