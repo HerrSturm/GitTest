@@ -1,8 +1,6 @@
 import pygame
 import sys
-
-from object import Object, SlidingObject, GravityObject, NoImpulseObject
-
+from object import Object, SlidingObject, GravityObject
 
 def main():
     pygame.init()
@@ -17,13 +15,8 @@ def main():
     gameObjects.append(Object(100, 100, 100, 100, (255, 0, 0), screen))
     gameObjects.append(SlidingObject(100, 200, 100, 100, (0, 255, 0), screen, 2))
     gameObjects.append(SlidingObject(600, 200, 100, 100, (0, 255, 0), screen, -2))
-
-    gameObjects.append(GravityObject(600, 200, 100, 100, (0, 255, 0), screen, 10, 10))
+    gameObjects.append(GravityObject(600, 200, 100, 100, (0, 255, 0), screen, 10, 0))
     
-
-    gameObjects.append(NoImpulseObject(600, 400, 100, 100, (255, 255, 0), screen, 2))
-    gameObjects.append(NoImpulseObject(200, 400, 100, 100, (0, 255, 0), screen, 2))
-
 
 
     clock = pygame.time.Clock()
