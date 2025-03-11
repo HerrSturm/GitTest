@@ -30,7 +30,10 @@ class SlidingObject(Object):
 
     def move(self):
         self.rect.x += self.speed
+        self.rect.y += self.speed*4
         if self.rect.right > self.screen.get_width() or self.rect.left < 0:
+            self.speed *= -1
+        if self.rect.bottom > self.screen.get_length() or self.rect.top < 0:
             self.speed *= -1
 
     def collide(self, other = None):
