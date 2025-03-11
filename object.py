@@ -36,12 +36,28 @@ class SlidingObject(Object):
     def collide(self, other = None):
         self.color = (randint(0, 255), randint(0, 255), randint(0, 255))
 
+
+class UpsidedownGravity(Object):
+    def __init__(self, x: int=0, y: int=0, width: int=100, height:int=100, color=(0, 0, 255),screen=pygame.display.get_surface(), speedx: float = 1,speedy: float = 1, acceleration: float = 0.02):
+        super().__init__(x, y, width, height, color, screen)
+        self.speedx = speedx
+        self.speedy = speedy
+        self.acceleration = acceleration
+        
+    def update(self):
+        super().update()
+        self.gravity()
+
+    def gravity(self):
+        self.speedy += self.acceleration
+
 class GravityObject(Object):
     def __init__(self, x: int=0, y: int=0, width: int=100, height:int=100, color=(255, 255, 255),screen=pygame.display.get_surface(), speedx: int = 1, speedy: int = 1):
         super().__init__(x, y, width, height, color, screen)
         self.speedx = speedx
         self.speedy = speedy
         self.acc = 2
+
 
     def move(self):
         self.rect.x += self.speedx
@@ -50,7 +66,9 @@ class GravityObject(Object):
             self.speedx *= -1
         if self.rect.bottom > self.screen.get_height() or self.rect.top < 0:
             self.speedy *= -1
+
         self.speedy += self.acc
+
 
 
 
