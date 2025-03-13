@@ -15,7 +15,7 @@ def main():
     gameObjects.append(Object(100, 100, 100, 100, (255, 0, 0), screen))
     gameObjects.append(SlidingObject(100, 200, 100, 100, (0, 255, 0), screen, 2))
     gameObjects.append(SlidingObject(600, 200, 100, 100, (0, 255, 0), screen, -2))
-    gameObjects.append(GravityObject(600, 200, 100, 100, (0, 255, 0), screen, 10, 0))
+    gameObjects.append(GravityObject(600, 200, 100, 100, (0, 255, 0), screen, 10, 0, 1))
     
 
 
@@ -45,7 +45,7 @@ def main():
 
         # Bildschirm aktualisieren
         pygame.display.flip()
-        clock.tick(30)
+        clock.tick(60)
     
     pygame.quit()
     sys.exit()
