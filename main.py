@@ -1,6 +1,6 @@
 import pygame
 import sys
-from object import Object, SlidingObject, GravityObject, ShrinkingObject
+from object import Object, SlidingObject, GravityObject
 
 def main():
     pygame.init()
@@ -15,8 +15,8 @@ def main():
     gameObjects.append(Object(100, 100, 100, 100, (255, 0, 0), screen))
     gameObjects.append(SlidingObject(100, 200, 100, 100, (0, 255, 0), screen, 2))
     gameObjects.append(SlidingObject(600, 200, 100, 100, (0, 255, 0), screen, -2))
-    gameObjects.append(GravityObject(600, 200, 100, 100, (0, 255, 0), screen, 10, 0, 1))
-    gameObjects.append(ShrinkingObject(800, 280, 100, 100, screen, -1))
+    gameObjects.append(GravityObject(600, 200, 100, 100, (0, 255, 0), screen, 10, 0, 1, 1))
+    gameObjects.append(GravityObject(110, 200, 100, 100, (0, 255, 0), screen, -10, 0, 1, 1))
     
 
 
@@ -40,7 +40,7 @@ def main():
         for obj in gameObjects:
             for other in gameObjects:
                 if obj != other and obj.rect.colliderect(other.rect):
-                    obj.collide(other)
+                    obj.momentum_collide(other)
         
 
 
