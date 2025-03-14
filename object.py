@@ -77,3 +77,21 @@ class GravityObject(Object):
 
 
 
+class ShrinkingObject(Object):
+    def __init__(self, x: int=0, y: int=0, width: int=100, height:int=100,screen=pygame.display.get_surface(), speed: int = 3):
+        super().__init__(x, y, width, height, screen=screen)
+        self.speed = speed
+        self.collide_check = False
+
+    def move(self):
+        if not self.collide_check:
+            self.rect = pygame.Rect(self.rect.left - 1, self.rect.top - 1, self.rect.width + 2, self.rect.height + 2)
+        self.collide_check = False
+        
+        self.rect.x += self.speed
+        if self.rect.right > self.screen.get_width() or self.rect.left < 0:
+            self.speed *= -1
+
+    def collide(self, other = None):
+        self.collide_check = True
+        self.rect = pygame.Rect(self.rect.left + 5, self.rect.top + 5, self.rect.width - 10, self.rect.height - 10)

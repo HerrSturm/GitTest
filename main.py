@@ -1,6 +1,6 @@
 import pygame
 import sys
-from object import Object, SlidingObject, GravityObject
+from object import Object, SlidingObject, GravityObject, ShrinkingObject
 
 def main():
     pygame.init()
@@ -16,6 +16,7 @@ def main():
     gameObjects.append(SlidingObject(100, 200, 100, 100, (0, 255, 0), screen, 2))
     gameObjects.append(SlidingObject(600, 200, 100, 100, (0, 255, 0), screen, -2))
     gameObjects.append(GravityObject(600, 200, 100, 100, (0, 255, 0), screen, 10, 0, 1))
+    gameObjects.append(ShrinkingObject(800, 280, 100, 100, screen, -1))
     
 
 
