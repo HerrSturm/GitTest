@@ -23,4 +23,25 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py')
+    - name: Analysing the code with ruff
+      run: |
+        ruff check --select E501
+        ruff check --select W191
+        ruff check --select W291
+        ruff check --select W292
+        ruff check --select W293
+        ruff check --select W391
+        ruff check --select E722
+        ruff check --select E721
+        ruff check --select E711
+        ruff check --select E703
+        ruff check --select E402
+        ruff check --select E401
+        ruff check --select E303
+        ruff check --select E116
+        ruff check --select E101
+        ruff check --select E111
+        
+    - name: Format code with ruff
+      run: |
         ruff format
