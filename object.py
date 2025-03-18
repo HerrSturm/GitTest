@@ -1,5 +1,5 @@
-import pygame
 from random import randint
+import pygame
 
 def sign(n):
     return -1 if n < 0 else 1
