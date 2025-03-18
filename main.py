@@ -15,8 +15,8 @@ def main():
     gameObjects.append(Object(100, 100, 100, 100, (255, 0, 0), screen))
     gameObjects.append(SlidingObject(100, 200, 100, 100, (0, 255, 0), screen, 2))
     gameObjects.append(SlidingObject(600, 200, 100, 100, (0, 255, 0), screen, -2))
-    gameObjects.append(GravityObject(600, 200, 100, 100, (0, 255, 0), screen, 10, 0, 1, 1))
-    gameObjects.append(GravityObject(110, 200, 100, 100, (0, 255, 0), screen, -10, 0, 1, 1))
+    gameObjects.append(GravityObject(600, 300, 100, 100, (0, 255, 0), screen, 10, 10, 1, 1))
+    gameObjects.append(GravityObject(600, 500, 100, 100, (0, 255, 0), screen, 0, 8, 1, 1))
     
 
 
@@ -37,16 +37,18 @@ def main():
             obj.update()
 
         # Kollisionen prüfen und collisions-Methoden aufrufen
+        pass
         for obj in gameObjects:
             for other in gameObjects:
                 if obj != other and obj.rect.colliderect(other.rect):
-                    obj.momentum_collide(other)
-        
+                    obj.dynamic_collide(other)
+                    obj.draw()
+                    pygame.display.flip()
 
 
         # Bildschirm aktualisieren
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(10)
     
     pygame.quit()
     sys.exit()

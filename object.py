@@ -24,10 +24,13 @@ class Object:
         pass
 
     def update(self):
-        self.move()
         self.draw()
+        self.move()
 
-    def collide(self, other = None):
+    def static_collide(self, other):
+        pass
+
+    def dynamic_collide(self, other = None):
         pass
 
     def momentum_collide(self, other):
@@ -47,7 +50,7 @@ class SlidingObject(Object):
         if self.rect.right > self.screen.get_width() or self.rect.left < 0:
             self.speed *= -1
 
-    def collide(self, other = None):
+    def dynamic_collide(self, other = None):
         self.color = (randint(0, 255), randint(0, 255), randint(0, 255))
 
 class GravityObject(Object):
@@ -74,20 +77,9 @@ class GravityObject(Object):
             if self.speedy >= 0:
                 self.rect.y -= self.height
             self.speedy *= -1
-        
+    
+    def static_collide(self, other):
 
-    def collide(self, other = None):
-        '''
-        self.speedy -= self.acc
-        self.rect.x -= self.speedx
-        if not self.rect.colliderect(other.rect):
-            self.speedx *= -1
-        else:
-            self.rect.x += self.speedx
-            self.rect.y -= self.speedy
-            self.speedy *= -1
-        self.speedy += self.acc
-'''
         #print(" ")
         if self.rect.x < other.rect.x:
             a = self
@@ -107,23 +99,78 @@ class GravityObject(Object):
         
         diffy = c.rect.bottom - d.rect.top
 
-        if diffx < diffy:
+        speeddiffx = a.speedx - b.speedx
+        speeddiffy = c.speedy - d.speedy
+
+        if speeddiffx > speeddiffy:
+            if a == self:
+                a.rect.x -= diffx
+                a.speedx = -1*abs(a.speedx)
+                #print("x")
+            else:
+                b.rect.x += diffx
+                b.speedx = abs(b.speedx)
+                #print("x")
+
+        else:
+            if c == self:
+                c.rect.y -= diffy
+                c.speedy = -1*abs(c.speedy)
+                #print("y")
+            else:
+                d.rect.y += diffy
+                d.speedy = abs(d.speedy)
+                #print("y")
+
+    def dynamic_collide(self, other = None):
+        if other.mass < 0:
+            self.static_collide(other)
+            return
+
+        print(" ")
+        if self.rect.x < other.rect.x:
+            a = self
+            b = other
+        else:
+            a = other
+            b = self
+        
+        diffx = a.rect.right - b.rect.left
+        
+        if self.rect.y < other.rect.y:
+            c = self
+            d = other
+        else:
+            c = other
+            d = self
+        
+        diffy = c.rect.bottom - d.rect.top
+
+        speeddiffx = a.speedx - b.speedx
+        speeddiffy = c.speedy - d.speedy
+
+        if speeddiffx > speeddiffy:
             a.rect.x -= diffx/2
+            a.rect.y -= (a.speedx/(diffx/2))*a.speedy
             b.rect.x += diffx/2
+            b.rect.y += (b.speedx/(diffx/2))*b.speedy
             a.speedx = -1*abs(a.speedx)
             b.speedx = abs(b.speedx)
-            #print("x")
+            print("x")
         else:
+            print(diffy)
             c.rect.y -= diffy/2
+            c.rect.x -= (c.speedy/(diffy/2))*c.speedx
             d.rect.y += diffy/2
+            d.rect.x += (d.speedy/(diffy/2))*d.speedx
             c.speedy = -1*abs(c.speedy)
             d.speedy = abs(d.speedy)
-            #print("y")
+            print("y")
 
 
     def momentum_collide(self, other):
         if self.mass < 0 or other.mass < 0:
-            self.collide(other)
+            self.static_collide(other)
         else:
             #print(" ")
             if self.rect.x < other.rect.x:
@@ -144,7 +191,10 @@ class GravityObject(Object):
             
             diffy = c.rect.bottom - d.rect.top
 
-            if diffx < diffy:
+            speeddiffx = a.speedx - b.speedx
+            speeddiffy = c.speedy - d.speedy
+
+            if speeddiffx > speeddiffy:
                 a.rect.x -= diffx/2
                 b.rect.x += diffx/2
                 a.speedx = ((a.mass-b.mass)*a.speedx + 2*b.mass*b.speedx)/(a.mass+b.mass)
