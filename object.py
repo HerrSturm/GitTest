@@ -167,17 +167,16 @@ class Why(Object):
         self.deg = 0
         self.rect.width = 2 * size
         self.rect.height = 2 * size
-        
+
     def draw(self):
         x = self.center[0] + sin(self.deg) * self.radius
         y = self.center[1] + cos(self.deg) * self.radius
-        #pygame.draw.rect(self.screen, (255, 0, 0), self.rect)
+        # pygame.draw.rect(self.screen, (255, 0, 0), self.rect)
         pygame.draw.circle(self.screen, self.color, (x, y), self.size)
-    
+
     def move(self):
         self.deg += self.speed * pi / 180
         x = self.center[0] + sin(self.deg) * self.radius
         y = self.center[1] + cos(self.deg) * self.radius
         self.rect.x = x - self.size
         self.rect.y = y - self.size
-        
