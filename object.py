@@ -1,4 +1,5 @@
 from random import randint
+from math import sin, cos, pi
 import pygame
 
 
@@ -145,3 +146,37 @@ class ShrinkingObject(Object):
             self.rect.width - 10,
             self.rect.height - 10,
         )
+
+
+class Why(Object):
+    def __init__(
+        self,
+        x: int = 0,
+        y: int = 0,
+        radius: int = 5,
+        size: int = 2,
+        screen=pygame.display.get_surface(),
+        speed: int = 3,
+    ):
+        super().__init__(x, y, screen=screen)
+        self.center = (x, y)
+        self.speed = speed
+        self.radius = radius
+        self.size = size
+        self.collide_check = False
+        self.deg = 0
+        self.rect.width = 2 * size
+        self.rect.height = 2 * size
+
+    def draw(self):
+        x = self.center[0] + sin(self.deg) * self.radius
+        y = self.center[1] + cos(self.deg) * self.radius
+        # pygame.draw.rect(self.screen, (255, 0, 0), self.rect)
+        pygame.draw.circle(self.screen, self.color, (x, y), self.size)
+
+    def move(self):
+        self.deg += self.speed * pi / 180
+        x = self.center[0] + sin(self.deg) * self.radius
+        y = self.center[1] + cos(self.deg) * self.radius
+        self.rect.x = x - self.size
+        self.rect.y = y - self.size
