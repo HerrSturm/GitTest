@@ -146,7 +146,8 @@ class ShrinkingObject(Object):
             self.rect.width - 10,
             self.rect.height - 10,
         )
-        
+
+
 class Why(Object):
     def __init__(
         self,

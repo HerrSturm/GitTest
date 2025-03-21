@@ -9,7 +9,6 @@ def render_text(text, color, coords, window):
     window.blit(text, coords)
 
 
-
 def main():
     pygame.init()
 
