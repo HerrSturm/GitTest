@@ -2,6 +2,10 @@ import pygame
 import sys
 from object import Object, SlidingObject, GravityObject, ShrinkingObject, Why
 
+def render_text(text, color, coords, window):
+    font = pygame.font.SysFont('Consolas', 30)
+    text = font.render(text, 1, pygame.Color(color))
+    window.blit(text, coords)
 
 def main():
     pygame.init()
@@ -40,6 +44,8 @@ def main():
             for other in gameObjects:
                 if obj != other and obj.rect.colliderect(other.rect):
                     obj.collide(other)
+                    
+        render_text("FPS: " + str(round(clock.get_fps(), 2)), (255, 255, 255), (0,0), screen)
 
         # Bildschirm aktualisieren
         pygame.display.flip()
